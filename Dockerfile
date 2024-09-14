@@ -1,11 +1,13 @@
-#FROM python:3.8-slim-buster
-FROM public.ecr.aws/sam/build-python3.8:1.121.0-20240730174605
-#WORKDIR /python-docker
+# Dockerfile for Python Flask App
+FROM python:3.8-slim-buster
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+# Copy the entire application code
+# Expose the port the app will run on
+EXPOSE 5000
 
-ENTRYPOINT python app.py
-#CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+# Command to run the app
+CMD ["python3", "app.py"]
